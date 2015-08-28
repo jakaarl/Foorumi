@@ -17,7 +17,10 @@ router.get('/', function(req, res, next) {
 // GET /topics/:id
 router.get('/:id', function(req, res, next) {
   var topicId = req.params.id;
-  Models.Topic.findOne(topicId).then(function(topic) {
+  Models.Topic.findOne({
+    where: { id: topicId },
+    include: { model: Models.Message }
+  }).then(function(topic) {
       res.json(topic);
   });
 });
@@ -32,12 +35,12 @@ router.post('/', function(req, res, next) {
 
 // POST /topics/:id/message
 router.post('/:id/message', function(req, res, next) {
-  // Lisää tällä id:llä varustettuun aihealueeseen...
   var topicId = req.params.id;
-  // ...tämä viesti (Vinkki: lisää ensin messageToAdd-objektiin kenttä TopicId, jonka arvo on topicId-muuttujan arvo ja käytä sen jälkeen create-funktiota)
   var messageToAdd = req.body;
-  // Palauta vastauksena lisätty viesti
-  res.send(200);
+  messageToAdd.TopicId = topicId;
+  Models.Message.create(messageToAdd).then(function (message) {
+    res.json(message);
+  });
 });
 
 module.exports = router;

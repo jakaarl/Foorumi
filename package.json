@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "lint": "node_modules/jslint/bin/jslint.js --node app.js db/*.js models/*.js routes/*.js utils/*.js"
   },
   "dependencies": {
     "body-parser": "~1.12.0",
@@ -18,5 +19,8 @@
     "sequelize": "^2.0.5",
     "serve-favicon": "~2.2.0",
     "sqlite3": "^3.0.5"
+  },
+  "devDependencies": {
+    "jslint": "^0.9.3"
   }
 }
