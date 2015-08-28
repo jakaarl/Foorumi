@@ -4,15 +4,16 @@ FoorumApp.controller('ShowMessageController', function($scope, $routeParams, Api
     $scope.message = message;
   });
 
-  $scope.reply;
+  $scope.reply = {};
+
   $scope.addReply = function() {
-    if ($scope.reply) {
-      var reply = {
-        content: $scope.reply
-      };
+    var reply = $scope.reply;
+    if (reply && reply.content) {
       Api.addReply(reply, messageId).success(function(reply) {
         $scope.message.Replies.push(reply);
+        $scope.reply = {};
       });
     }
-  }
+  };
+
 });

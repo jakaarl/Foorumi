@@ -11,7 +11,7 @@ router.get('/:id', function(req, res, next) {
   var messageId = req.params.id;
   Models.Message.findOne({
     where: { id: messageId },
-    include: { model: Models.Reply }
+    include: { model: Models.Reply, include: { model: Models.User }}
   }).then(function (message) {
     res.json(message);
   });
@@ -19,9 +19,9 @@ router.get('/:id', function(req, res, next) {
 
 // POST /messages/:id/reply
 router.post('/:id/reply', function(req, res, next){
-  var messageId = req.params.id;
   var replyToAdd = req.body;
-  replyToAdd.MessageId = messageId;
+  replyToAdd.MessageId = req.params.id;
+  replyToAdd.UserIs = req.session.userId;
   Models.Reply.create(replyToAdd).then(function (reply) {
     res.json(reply);
   });

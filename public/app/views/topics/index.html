@@ -1,4 +1,3 @@
-<div  ng-controller="TopicsListController">
   <div class="page-header">
     <h1>Aihealueet</h1>
   </div>
@@ -14,18 +13,19 @@
     </div>
   </div>
 
-  <h2>Lisää oma aihealueesi</h2>
+  <div ng-if="userLoggedIn">
+    <h2>Lisää oma aihealueesi</h2>
 
-  <form>
-    <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" class="form-control" ng-model="newTopic.name">
-    </div>
+    <form>
+      <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" class="form-control" ng-model="newTopic.name">
+      </div>
 
-    <div class="form-group">
-      <label>Kuvaus</label>
-      <textarea class="form-control" ng-model="newTopic.description"></textarea>
-    </div>
-    <button class="btn btn-success" ng-click="addTopic()">Lisää viesti</button>
-  </form>
-</div>
+      <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea class="form-control" ng-model="newTopic.description"></textarea>
+      </div>
+      <button class="btn btn-success" ng-click="addTopic()">Lisää aihealue</button>
+    </form>
+  </div>

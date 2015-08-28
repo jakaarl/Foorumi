@@ -4,17 +4,22 @@ FoorumApp.controller('ShowTopicController', function($scope, $routeParams, $loca
     $scope.topic = topic;
   });
 
-  $scope.messageTitle;
-  $scope.messageContent;
+  $scope.newMessage = {};
+
   $scope.addMessage = function() {
-    if ($scope.messageTitle && $scope.messageTitle) {
+    var message = $scope.newMessage;
+    if (message.title && message.content) {
+      console.log("Adding message to topic: " + topicId);
       var message = {
-        title: $scope.messageTitle,
-        content: $scope.messageContent
+        title: message.title,
+        content: message.content
       };
       Api.addMessage(message, topicId).success(function(message) {
         $location.path('/messages/' + message.id);
+      }).error(function(error) {
+        console.log(error);
       });
     }
   };
+  
 });

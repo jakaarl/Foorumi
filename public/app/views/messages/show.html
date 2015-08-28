@@ -7,12 +7,12 @@
 </p>
 
 <h2><ng-pluralize count="message.Replies"
-     when="{ '1': '1 vastaus', 'other': '{} vastausta' }"</h2>
+     when="{ '1': '1 vastaus', 'other': '{} vastausta' }"/></h2>
 
 <ul class="media-list">
   <li class="media" ng-repeat="reply in message.Replies">
     <div class="media-body">
-      <h4 class="media-heading">Käyttäjätunnus tähän</h4>
+      <h4 class="media-heading">{{ reply.User.username }}</h4>
 
       <p>
         {{ reply.content }}
@@ -25,12 +25,14 @@
   </li>
 </ul>
 
-<h2>Lisää oma vastauksesi</h2>
+<div ng-if="userLoggedIn">
+  <h2>Lisää oma vastauksesi</h2>
 
-<form>
-  <div class="form-group">
-    <label>Vastaus</label>
-    <textarea class="form-control" ng-model="reply"></textarea>
-  </div>
-  <button class="btn btn-success" ng-click="addReply()">Lisää vastaus</button>
-</form>
+  <form>
+    <div class="form-group">
+      <label>Vastaus</label>
+      <textarea class="form-control" ng-model="reply.content"></textarea>
+    </div>
+    <button class="btn btn-success" ng-click="addReply()">Lisää vastaus</button>
+  </form>
+</div>
